@@ -1,5 +1,5 @@
 plugins {
-	java
+	id("java")
 	id("org.springframework.boot") version "3.3.3"
 	id("io.spring.dependency-management") version "1.1.6"
 }
@@ -20,7 +20,7 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	// testRuntimeOnly("org.junit.platform:junit-platform-launcher") // Optional: Typically not needed
 }
 
 tasks.withType<Test> {

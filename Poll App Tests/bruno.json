@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Poll App Tests",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

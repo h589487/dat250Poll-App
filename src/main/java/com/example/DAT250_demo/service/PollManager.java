@@ -9,35 +9,25 @@ import java.util.Map;
 
 @Component
 public class PollManager {
-    private Map<String, User> users = new HashMap<>();
-    private Map<String, Poll> polls = new HashMap<>();
+    private HashMap<String, User> users = new HashMap<>();
+    private HashMap<Integer, Poll> polls = new HashMap<>();
 
-    //Metoder til å håndtere brukere
-    public User createUser(String username, String email) {
-        User user = new User();
-        user.setUsername(username);
-        user.setEmail(email);
-        users.put(username, user);
-        return user;
+    public HashMap<String, User> getUsers() {
+        return users;
     }
 
-    public User getUser(String username){
-        return  users.get(username);
+    public void setUsers(HashMap<String, User> users) {
+        this.users = users;
     }
 
-    public Poll createPoll(String question, String creatorUsername){
-        User creator = getUser(creatorUsername);
-        if (creator == null){
-            throw new IllegalArgumentException("Creator does not exist");
-        }
-        Poll poll = new Poll();
-        poll.setQuestion(question);
-
-        polls.put(question, poll);
-        return poll;
+    public HashMap<Integer, Poll> getPolls() {
+        return polls;
     }
 
-    public Poll getPoll(String question){
-        return polls.get(question);
+    public void setPolls(HashMap<Integer, Poll> polls) {
+        this.polls = polls;
     }
 }
+
+
+
