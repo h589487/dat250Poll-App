@@ -6,4 +6,4 @@ Initially I had some serialization problems when I tried to try the HTTP client 
 
 
 ## Pending Issues
-Not that I can think ofk, but the project is still work in progress and alot has not been implemented yet.
+Not that I can think of, but the project is still work in progress and alot has not been implemented yet.
