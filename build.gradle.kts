@@ -18,9 +18,8 @@ repositories {
 }
 
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
-	// testRuntimeOnly("org.junit.platform:junit-platform-launcher") // Optional: Typically not needed
+	implementation("org.springframework.boot:spring-boot-starter-web:3.3.3")
+	testImplementation("org.springframework.boot:spring-boot-starter-test:3.3.3")
 }
 
 tasks.withType<Test> {

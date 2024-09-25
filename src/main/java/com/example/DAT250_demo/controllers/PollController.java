@@ -1,7 +1,6 @@
 package com.example.DAT250_demo.controllers;
 
 import com.example.DAT250_demo.domain.Poll;
-import com.example.DAT250_demo.domain.User;
 import com.example.DAT250_demo.service.PollManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,9 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
-import java.util.Map;
+
 
 @RestController
+@CrossOrigin("http://localhost:5173")
 @RequestMapping("/polls")
 public class PollController {
 
@@ -23,36 +23,41 @@ public class PollController {
         this.pollManager = pollManager;
         this.nextId = 1; // Starter med ID 1
     }
-    @GetMapping("/polls")
+
+    @GetMapping
     public ResponseEntity<HashMap<Integer, Poll>> getAllPolls() {
         HashMap<Integer, Poll> polls = pollManager.getPolls();
         return ResponseEntity.ok(polls);
     }
 
-    @GetMapping("/polls/{pollId}")
+    @GetMapping("/{pollId}")
     public ResponseEntity<Poll> getPoll(@PathVariable Integer pollId) {
-       HashMap<Integer, Poll> polls = pollManager.getPolls();
-       Poll poll = polls.get(pollId);
-       if(poll != null){
-           return ResponseEntity.ok(poll);
-       }
-       return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        HashMap<Integer, Poll> polls = pollManager.getPolls();
+        Poll poll = polls.get(pollId);
+        if(poll != null){
+            return ResponseEntity.ok(poll);
+        }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @PostMapping("/polls")
+    @PostMapping
     public ResponseEntity<Poll> createPoll(@RequestBody Poll poll){
+        System.out.println("Received poll data: " + poll);
+
         HashMap<Integer, Poll> polls = pollManager.getPolls();
-        //Sjekk om Poll er null
         if (poll == null){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        //Genererer en unik ID og legg til Poll
+
         int id = nextId++;
         polls.put(id, poll);
         return new ResponseEntity<>(poll, HttpStatus.CREATED);
     }
 
-    @PutMapping("/polls/{pollId}")
+
+
+
+    @PutMapping("/{pollId}")
     public ResponseEntity<String> updatePoll(@PathVariable Integer pollId, @RequestBody Poll poll) {
         HashMap<Integer, Poll> polls = pollManager.getPolls();
 
@@ -64,20 +69,19 @@ public class PollController {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Poll not found");
     }
 
-    @DeleteMapping("/polls/{pollId}")
+    @DeleteMapping("/{pollId}")
     public ResponseEntity<String> deletePoll(@PathVariable Integer pollId) {
         HashMap<Integer, Poll> polls = pollManager.getPolls();
         polls.remove(pollId);
         return ResponseEntity.ok("Poll deleted");
     }
 
-    @DeleteMapping("/polls/")
-    public ResponseEntity<String> deleteAllPoll() {
+    @DeleteMapping
+    public ResponseEntity<String> deleteAllPolls() {
         HashMap<Integer, Poll> polls = pollManager.getPolls();
         polls.clear();
         return ResponseEntity.ok("All polls deleted");
     }
-
-
 }
+
 
